@@ -30,6 +30,9 @@ class TaskResponse(BaseModel):
     
     class Config:
         from_attributes = True
+        json_encoders = {
+            datetime: lambda v: v.isoformat()
+        }
 
 class TaskSearchParams(BaseModel):
     search: Optional[str] = Field(None, max_length=200, description="Search term for task title")
