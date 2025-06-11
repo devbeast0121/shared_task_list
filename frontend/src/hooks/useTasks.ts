@@ -46,3 +46,15 @@ export const useClaimTask = () => {
             }),
     });
 };
+
+export const useDeleteTask = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (taskId: number) => api.deleteTask(taskId),
+        onSuccess: () => {
+            // Invalidate and refetch tasks
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+        },
+    });
+};
